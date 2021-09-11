@@ -2,7 +2,7 @@ const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { cleanWebpackPlugin, CleanWebpackPlugin } = require('clean-webpack-plugin');
-
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 let mode = "development"
 let target = "web";
@@ -37,7 +37,7 @@ module.exports = {
           "sass-loader"],
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -50,9 +50,11 @@ module.exports = {
     new MiniCssExtractPlugin(), 
     new HtmlWebpackPlugin({
       template: "./src/index.html"
-    })],
+    }),
+    new ForkTsCheckerWebpackPlugin()
+  ],
   resolve: {
-    extensions: [".js", ".jsx"]
+    extensions: [".js", ".jsx", "ts", "tsx"]
   },
   devtool: "source-map",
   devServer: {
