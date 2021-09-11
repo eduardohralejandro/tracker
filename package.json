@@ -24,6 +24,13 @@
     "@babel/core": "^7.15.5",
     "@babel/preset-env": "^7.15.6",
     "babel-loader": "^8.2.2",
+    "css-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.2.2",
+    "postcss": "^8.3.6",
+    "postcss-loader": "^6.1.1",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.39.2",
+    "sass-loader": "^12.1.0",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.2.0"
