@@ -18,7 +18,7 @@ module.exports = {
         use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"],
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: "babel-loader"
@@ -27,7 +27,10 @@ module.exports = {
     ]
   },
   plugins: [new MiniCssExtractPlugin()],
-  devtool: "source-map", // check source code eg: console
+  resolve: {
+    extensions: [".js", ".jsx"]
+  },
+  devtool: "source-map",
   devServer: {
     static: './dist',
     hot: true,
