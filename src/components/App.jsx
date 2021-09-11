@@ -1,6 +1,8 @@
+import React from 'react';
+
 import '../styles/index.scss';
 import Map from './Map';
-
+import New from './New.tsx';
 
 const App = () => {
   return (
@@ -10,6 +12,7 @@ const App = () => {
         <section>
           <h1>react</h1>
           <Map />
+          <New />
         </section>
       </main>
     </>
