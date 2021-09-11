@@ -1,7 +1,6 @@
-import './styles/index.scss';
-const object = {
-  person: 'human'
-}
 
-console.log(object);
+import { render } from 'react-dom';
+import App from "./components/App";
+
+render(<App />, document.getElementById("root"));
 
