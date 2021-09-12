@@ -1,7 +1,7 @@
 import React from 'react';
 
 import '../styles/index.scss';
-import Map from './Map';
+import Map from './Map.tsx';
 import New from './New.tsx';
 
 const App = () => {
