@@ -5,20 +5,29 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 // @ts-ignore
 import  cities  from './utils/data.ts'
 
+
+interface initialStateMap {
+  latitude:  number,
+  longitude: number,
+  width: string,
+  height: string,
+  zoom: number
+}
+
 const Map = () => {
-  const [viewport, setViewport] = useState({
+  const [viewport, setViewport] = useState<initialStateMap>({
     latitude: 50.85628104510911,
     longitude: 4.343033412604632,
     width: "100vw",
     height: "100vh",
-    zoom: 8
+    zoom: 8,
   });
 
   const [airData, setAirData] = useState<[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-    const PromiseArr: any = [];
+    const PromiseArr: [] = [];
       for(const city of cities) {
         const url = `https://api.waqi.info/feed/${city.name}/?token=22507baa78c5ec1ce73f5ee9e3aa49c4f079f45e`;
         
