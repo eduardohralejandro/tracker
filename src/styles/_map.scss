@@ -18,3 +18,14 @@
 .geo {
   margin-left: 70px;
 }
+
+
+.points {
+  display:block;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  border: 2px solid rgb(206, 205, 205);
+  cursor: pointer; 
+  box-shadow: 5px -2px 15px -9px #000000;
+}

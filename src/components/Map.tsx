@@ -94,7 +94,7 @@ const Map = () => {
             return (
               <div key={index}>
                 <Marker longitude={e.data.data.city.geo[1]} latitude={e.data.data.city.geo[0]}> 
-                  <MarkerIcon />
+                  <MarkerIcon qualityIndex={e.data.data.aqi} />
                 </Marker>
               </div>
             );
