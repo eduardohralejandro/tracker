@@ -1,34 +1,65 @@
-import React, {useState, SetStateAction, useEffect} from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import React, {useState, SetStateAction, useEffect, useRef, useCallback} from 'react';
+import ReactMapGL, { Marker, GeolocateControl, NavigationControl } from 'react-map-gl'; // GeolocateControl
+import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+// @ts-ignore
+import Geocoder from 'react-map-gl-geocoder'
 import axios from 'axios';
 import 'mapbox-gl/dist/mapbox-gl.css';
 // @ts-ignore
 import  cities  from './utils/data.ts'
 // @ts-ignore
 import MarkerIcon from './MarkerIcon.tsx';
+// @ts-ignore
+import SideBar from './SideBar.tsx';
 import '../styles/index.scss';
+
 
 interface initialStateMap {
   latitude:  number,
   longitude: number,
   width?: string,
   height?: string,
-  zoom?: number
+  zoom?: number,
+  placeholder?: string
 }
 
+const geolocateStyle = {
+  float: 'left',
+  margin: '50px',
+  padding: '10px'
+};
+const mapboxApiAccessToken = "pk.eyJ1IjoiZWR1YXJkb2hlcm5hbmRleiIsImEiOiJja3RoNmhlbWcwaWppMnpwYW5wNGV5MTZzIn0.VppCQEFpblrOgnCpYWG5Gg"
 const Map = () => {
   const [viewport, setViewport] = useState<initialStateMap>({
     latitude: 50.85628104510911,
     longitude: 4.343033412604632,
-    zoom: 12,
+    zoom: 13,
   });
 
   const [airData, setAirData] = useState<[]>([]);
 
+  const element = useRef<any>();
+  
+  const handleViewportChange = useCallback((newViewport) => setViewport(newViewport),[]);
+
+  const handleGeocoderViewportChange = useCallback(
+    (newViewport) => {
+      const geocoderDefaultOverrides = { transitionDuration: 1000 };
+
+      return handleViewportChange({
+        ...newViewport,
+        ...geocoderDefaultOverrides
+      });
+    },
+    [handleViewportChange]
+  );
+
+
   useEffect(() => {
     const fetchData = async () => {
     const PromiseArr: [] = [];
-      for(const city of cities) {
+
+      for (const city of cities) {
         const url = `https://api.waqi.info/feed/${city.name}/?token=22507baa78c5ec1ce73f5ee9e3aa49c4f079f45e`;
         
         PromiseArr.push(await axios.get(url));
@@ -43,12 +74,22 @@ const Map = () => {
       <div className='map-container'>
         <div className='map'>
           <ReactMapGL 
-                    {...viewport}
-                    width="130vh"
-                    height="100vh"
-                    mapStyle="mapbox://styles/mapbox/outdoors-v11"
-                    mapboxApiAccessToken={"pk.eyJ1IjoiZWR1YXJkb2hlcm5hbmRleiIsImEiOiJja3RoNmhlbWcwaWppMnpwYW5wNGV5MTZzIn0.VppCQEFpblrOgnCpYWG5Gg"} // test, no compromising info, free key
-                    onViewportChange={(viewport: SetStateAction<any>) => setViewport(viewport)} >
+                      ref={element}
+                      {...viewport}
+                      width="130vh"
+                      height="100vh"
+                      mapStyle="mapbox://styles/mapbox/outdoors-v11"
+                      mapboxApiAccessToken={mapboxApiAccessToken} // test, no compromising info, free key
+                      onViewportChange={(view: SetStateAction<any>) => handleViewportChange(view)}>
+              <Geocoder 
+                        onViewportChange={handleGeocoderViewportChange}
+                        mapRef={element}
+                        mapboxApiAccessToken={mapboxApiAccessToken} />
+              <GeolocateControl
+                                style={geolocateStyle}
+                                positionOptions={{enableHighAccuracy: true}}
+                                trackUserLocation={true} />
+              <NavigationControl />
           {airData?.map((e: any, index: number) => {
             return (
               <div key={index}>
@@ -59,6 +100,9 @@ const Map = () => {
             );
           })}
         </ReactMapGL>
+       </div>
+       <div>
+        <SideBar />
        </div>
      </div>
     </div>
