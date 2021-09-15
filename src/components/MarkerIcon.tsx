@@ -4,11 +4,13 @@ import '../styles/index.scss';
 
 
 interface typeProps {
-  qualityIndex: number
+  qualityIndex: number,
+  displayInfo: (info: any) => void,
+  info: any
 }
 
-const MarkerIcon: FC<typeProps> = ({ qualityIndex }) => {
- 
+const MarkerIcon: FC<typeProps> = ({ qualityIndex, displayInfo, info}) => {
+
   const colorsIndex = {
     good: '#57cc99',
     modarate: "#ffee88",
@@ -24,7 +26,7 @@ const MarkerIcon: FC<typeProps> = ({ qualityIndex }) => {
   (qualityIndex > 200 ? colorsIndex.veryUnhealthy : qualityIndex  > 300 ? colorsIndex.hazardous : null)
   return (
     <div>
-      <button className='points' style={{backgroundColor: `${colorLogic}`}} />
+      <button onClick={() => displayInfo(info)} className='points' style={{backgroundColor: `${colorLogic}`}} />
     </div>
   );
 }

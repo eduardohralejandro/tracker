@@ -37,10 +37,13 @@ const Map = () => {
   });
 
   const [airData, setAirData] = useState<[]>([]);
+  const [card, setCardData] = useState<[]>();
 
   const element = useRef<any>();
   
   const handleViewportChange = useCallback((newViewport) => setViewport(newViewport),[]);
+  
+  const displayInformation = (data: any) =>  setCardData(data);
 
   const handleGeocoderViewportChange = useCallback(
     (newViewport) => {
@@ -94,15 +97,18 @@ const Map = () => {
             return (
               <div key={index}>
                 <Marker longitude={e.data.data.city.geo[1]} latitude={e.data.data.city.geo[0]}> 
-                  <MarkerIcon qualityIndex={e.data.data.aqi} />
+                  <MarkerIcon
+                              info={e.data} 
+                              displayInfo={displayInformation}
+                              qualityIndex={e.data.data.aqi} />
                 </Marker>
               </div>
             );
           })}
         </ReactMapGL>
        </div>
-       <div>
-        <SideBar />
+       <div className='card-container'>
+        <SideBar card={card} />
        </div>
      </div>
     </div>
