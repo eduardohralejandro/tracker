@@ -32,12 +32,14 @@
 
 .card-container {
   height: 50%;
-  width: 40%;
-  margin: 8% 3% 3%;
-  padding: 2%;
+  margin: 3% 5% 1% 2%;
+  padding: 4%;
   border-radius: 3%;
   border: 2px solid rgb(206, 205, 205);
   flex-grow: 1;
+  width: 430px;
+  min-width:300px;
+  display: inline-block;
 
 }
 
@@ -52,6 +54,7 @@
 
 .city-name {
   font-size: 25px;
+  margin: auto;
 }
 
 .search-icon {
@@ -63,4 +66,45 @@
 
 .element-empty {
   margin: 0 auto;
+}
+
+.tabs {
+  text-align: center;
+}
+
+.btn-tabs {
+  background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+  font-size: 20px;
+
+  margin: 1% 15% 4% 15%;
+}
+
+.save-icon {
+  margin-left: 60%;
+  margin-right: 5%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.city-box {
+  display: flex;
+  align-items: center;
+  margin: 1% 1% 1% 1%;
+  padding: 0%;
+}
+
+.fav-title {
+  font-size: 58px;
+}
+
+h5 {
+  font-size: 25px;
+  padding-right: 55%;
 }
