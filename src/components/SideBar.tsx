@@ -1,17 +1,21 @@
 import React, { FC } from "react";
-
+//@ts-ignore
 import '../styles/index.scss';
 
 
 interface typeProps {
-  card: any
+  card: any,
+  addCity: (city: string) => void;
 }
 
-const SideBar: FC<typeProps> = ({ card }) => {
+const SideBar: FC<typeProps> = ({ card, addCity }) => {
  if (card) {
   return(
     <div>
-      <h2 className='city-name'>{card?.data.city.name}</h2>
+      <div className='city-box'>
+        <h2 className='city-name'>{card?.data.city.name}</h2>
+        <img  className='save-icon' onClick={() => addCity(card?.data.city.name)} src="https://www.linkpicture.com/q/star_1.svg" alt="" />
+      </div>
       <p className='sub-title'>Air quality index:  {card?.data.aqi}</p>
       <span>
         <h5 className="sub-title">pm10: {card?.data.iaqi.pm10?.v}</h5>

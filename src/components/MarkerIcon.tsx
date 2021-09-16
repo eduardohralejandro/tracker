@@ -23,7 +23,8 @@ const MarkerIcon: FC<typeProps> = ({ qualityIndex, displayInfo, info}) => {
   const colorLogic = 
   (qualityIndex <= 50 ? colorsIndex.good : qualityIndex  > 50  ? colorsIndex.modarate : null) ||  
   (qualityIndex > 100 ? colorsIndex.sensitive : qualityIndex  > 150  ? colorsIndex.unhealthy : null) ||
-  (qualityIndex > 200 ? colorsIndex.veryUnhealthy : qualityIndex  > 300 ? colorsIndex.hazardous : null)
+  (qualityIndex > 200 ? colorsIndex.veryUnhealthy : qualityIndex  > 300 ? colorsIndex.hazardous : null);
+
   return (
     <div>
       <button onClick={() => displayInfo(info)} className='points' style={{backgroundColor: `${colorLogic}`}} />
